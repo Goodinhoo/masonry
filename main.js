@@ -354,7 +354,7 @@ class AdvancedTetrisGallery {
       tetrisGrid.style.setProperty('--grid-columns', this.config.columns);
       tetrisGrid.style.setProperty('--grid-rows', this.config.rows);
       tetrisGrid.style.setProperty('--cell-size', '120px');
-      tetrisGrid.style.setProperty('--grid-gap', '4px');
+      tetrisGrid.style.setProperty('--grid-gap', '15px');
       
       console.log(`🎨 Grid CSS inicializado: ${this.config.columns}x${this.config.rows}`);
     }
