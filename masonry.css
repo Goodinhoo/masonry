@@ -354,8 +354,7 @@
 }
 
 .tetris-grid {
-    display: grid
-;
+    display: grid;
     grid-template-columns: repeat(auto-fit, minmax(var(--cell-size), 1fr));
     grid-template-rows: repeat(var(--grid-rows), var(--cell-size));
     gap: var(--grid-gap);
