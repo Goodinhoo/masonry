@@ -171,6 +171,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     padding-right: 4px;
+}
 
 /* Estilização customizada da barra de scroll */
 .category-filters::-webkit-scrollbar {
