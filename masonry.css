@@ -364,7 +364,6 @@
   padding: 20px;
   background: var(--surface-color);
   border-radius: 20px;
-  box-shadow: 0 0 9px var(--shadow-color);
   border: 1px solid var(--border-color);
 }
 
