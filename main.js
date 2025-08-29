@@ -87,8 +87,10 @@ class AdvancedImageDataManager {
           season: image.mainCategory ? image.mainCategory.toLowerCase() : 'unknown',
           mainCategory: image.mainCategory,
           subCategory: image.subCategory,
-          url: image.url || this.generateDriveUrl(image.id),
-          src: image.url || this.generateDriveUrl(image.id),
+          thumbnailUrl: this.generateThumbnailUrl(image.id), // Para galeria
+          highQualityUrl: this.generateDriveUrl(image.id),   // Para modal
+          url: this.generateDriveUrl(image.id),              // Compatibilidade
+          src: this.generateThumbnailUrl(image.id),          // URL principal (thumbnail)
           alt: image.name || 'Image'
         };
       });
@@ -118,8 +120,10 @@ class AdvancedImageDataManager {
             season: mainCategory.toLowerCase(), 
             mainCategory: mainCategory,
             subCategory: subCategory,
-            url: this.generateDriveUrl(image.id),
-            src: this.generateDriveUrl(image.id),
+            thumbnailUrl: this.generateThumbnailUrl(image.id), // Para galeria
+            highQualityUrl: this.generateDriveUrl(image.id),   // Para modal
+            url: this.generateDriveUrl(image.id),              // Compatibilidade
+            src: this.generateThumbnailUrl(image.id),          // URL principal (thumbnail)
             alt: image.name
           };
           
@@ -178,8 +182,16 @@ class AdvancedImageDataManager {
    * 3. /file/d/ID/view - Página de visualização (não é imagem direta)
    */
   generateDriveUrl(fileId) {
-    // URL principal: thumbnail com tamanho específico
-    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+    // URL principal: thumbnail com alta qualidade para modal
+    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w2048`;
+  }
+
+  /**
+   * Gerar URL thumbnail pequeno para galeria (carregamento rápido)
+   */
+  generateThumbnailUrl(fileId) {
+    // URL thumbnail pequeno para a galeria
+    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w400`;
   }
 
   /**
@@ -378,7 +390,10 @@ class AdvancedTetrisGallery {
     seasons.forEach(season => {
       const option = document.createElement('option');
       option.value = season;
-      option.textContent = `Infinity Nexus ${season.charAt(0).toUpperCase() + season.slice(1)}`;
+      // Garantir formatação consistente da temporada
+      const seasonName = (season || 'unknown').toLowerCase();
+      const formattedSeason = seasonName.charAt(0).toUpperCase() + seasonName.slice(1);
+      option.textContent = `Infinity Nexus ${formattedSeason}`;
       seasonSelector.appendChild(option);
     });
     
@@ -616,8 +631,8 @@ class AdvancedTetrisGallery {
     img.onerror = () => {
       console.warn(`Falha ao carregar imagem ${imageObj.googleDriveId}, tentando URL alternativo...`);
       
-      // Tentar URL alternativo com tamanho menor
-      const fallbackUrl = `https://drive.google.com/thumbnail?id=${imageObj.googleDriveId}&sz=w800`;
+      // Tentar URL alternativo com tamanho ainda menor
+      const fallbackUrl = `https://drive.google.com/thumbnail?id=${imageObj.googleDriveId}&sz=w300`;
       
       if (img.src !== fallbackUrl) {
         img.src = fallbackUrl;
@@ -728,11 +743,17 @@ class AdvancedTetrisGallery {
    * Atualizar imagem do modal
    */
   updateModalImage(image) {
-    modalImage.src = image.src || image.url;
+    // Usar alta qualidade no modal
+    const modalUrl = image.highQualityUrl || image.url;
+    console.log(`🔍 Modal carregando: ${modalUrl}`);
+    modalImage.src = modalUrl;
     modalImage.alt = image.alt || image.originalName;
     imageTitle.textContent = this.imageManager.formatImageDate(image.originalName || image.name);
     imageDescription.textContent = `Jogador: ${image.title}`;
-    imageSeason.textContent = `Infinity Nexus ${image.season.charAt(0).toUpperCase() + image.season.slice(1)}`;
+    // Garantir formatação consistente da temporada
+    const seasonName = (image.season || 'unknown').toLowerCase();
+    const formattedSeason = seasonName.charAt(0).toUpperCase() + seasonName.slice(1);
+    imageSeason.textContent = `Infinity Nexus ${formattedSeason}`;
     imageCounter.textContent = `${currentImageIndex + 1} de ${currentImages.length}`;
   }
 
@@ -854,6 +875,22 @@ document.addEventListener("DOMContentLoaded", async () => {
           console.log('📋 Todas as imagens disponíveis:');
           images.forEach((img, index) => {
             console.log(`${index + 1}. ${img.originalName} (${img.season} - ${img.category})`);
+          });
+          return images;
+        }
+        return [];
+      },
+      
+      // Debug URLs das imagens
+      checkImageUrls: () => {
+        if (window.gallery && window.gallery.imageManager) {
+          const images = window.gallery.imageManager.getAllImages();
+          console.log('🔍 URLs das imagens:');
+          images.slice(0, 3).forEach((img, index) => {
+            console.log(`Imagem ${index + 1}: ${img.originalName}`);
+            console.log(`  - Thumbnail (galeria): ${img.thumbnailUrl || img.src}`);
+            console.log(`  - Alta qualidade (modal): ${img.highQualityUrl || img.url}`);
+            console.log(`  - URL compatíbilidade: ${img.url}`);
           });
           return images;
         }
