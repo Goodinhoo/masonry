@@ -1,29 +1,7 @@
 /**
  * Galeria Tetris Avançada com Tema Gale
  * Sistema integrado com filtros, visualizador de imagens e layout tetris inteligente
-/**
- * Nomes das categorias para exibição
- */
-const categoryDisplayNames = {
-  Armo: "Armo",
-  AronDesu0: "AronDesu0", 
-  alexdjositos3: "AlexDjositos3",
-  _Ins4ne_: "Ins4ne"
-};
 
-/**
- * Informações das temporadas/seasons
- */
-const seasonInfo = {
-  evolve: {
-    title: "Infinity Nexus Evolve",
-    color: "#8b5cf6"
-  },
-  reborn: {
-    title: "Infinity Nexus Reborn", 
-    color: "#10b981"
-  }
-};
 
 /**
  * Estado da aplicação
@@ -105,7 +83,7 @@ class AdvancedImageDataManager {
           googleDriveId: image.id,
           originalName: image.name,
           category: image.subCategory ? image.subCategory.toLowerCase() : 'unknown',
-          title: categoryDisplayNames[image.subCategory] || image.subCategory || 'Unknown',
+          title: image.subCategory || 'Unknown',
           season: image.mainCategory ? image.mainCategory.toLowerCase() : 'unknown',
           mainCategory: image.mainCategory,
           subCategory: image.subCategory,
@@ -136,7 +114,7 @@ class AdvancedImageDataManager {
             googleDriveId: image.id,
             originalName: image.name,
             category: subCategory.toLowerCase(),
-            title: categoryDisplayNames[subCategory] || subCategory,
+            title: subCategory,
             season: mainCategory.toLowerCase(), 
             mainCategory: mainCategory,
             subCategory: subCategory,
@@ -400,7 +378,7 @@ class AdvancedTetrisGallery {
     seasons.forEach(season => {
       const option = document.createElement('option');
       option.value = season;
-      option.textContent = seasonInfo[season]?.title || season;
+      option.textContent = `Infinity Nexus ${season.charAt(0).toUpperCase() + season.slice(1)}`;
       seasonSelector.appendChild(option);
     });
     
@@ -423,7 +401,7 @@ class AdvancedTetrisGallery {
       filterBtn.dataset.filter = category;
       
       filterBtn.innerHTML = `
-        <span class="filter-name">${categoryDisplayNames[category] || category}</span>
+        <span class="filter-name">${category}</span>
         <span class="filter-badge">${count}</span>
       `;
       
@@ -440,8 +418,8 @@ class AdvancedTetrisGallery {
     if (imageCountText) {
       const count = filteredImages.length;
       // Atualiza apenas o texto do número, mantendo o span "imagens encontradas" com espaço
-      imageCountText.innerHTML = `${count} <span>&nbsp;Imagens encontradas</span>`;
-      console.log(`🎫 Badge atualizado: ${count} imagens encontradas`);
+      imageCountText.innerHTML = `${count} <span>&nbsp;Imagens</span>`;
+      console.log(`🎫 Badge atualizado: ${count} imagens`);
     }
   }
 
@@ -754,7 +732,7 @@ class AdvancedTetrisGallery {
     modalImage.alt = image.alt || image.originalName;
     imageTitle.textContent = this.imageManager.formatImageDate(image.originalName || image.name);
     imageDescription.textContent = `Jogador: ${image.title}`;
-    imageSeason.textContent = seasonInfo[image.season]?.title || image.season;
+    imageSeason.textContent = `Infinity Nexus ${image.season.charAt(0).toUpperCase() + image.season.slice(1)}`;
     imageCounter.textContent = `${currentImageIndex + 1} de ${currentImages.length}`;
   }
 
