@@ -521,6 +521,7 @@
 /* Carousel container - estilo Tailwind */
 .infinity-carousel {
   position: relative;
+  top: -45px;
   width: auto; /* Usa toda a largura da viewport */
   height: 85vh; /* Usa toda a altura da viewport */
   max-width: none; /* Remove limitação de largura */
@@ -535,7 +536,6 @@
 }
 
 #modalImage {
-  position: relative;
   width: auto;
   height: 85vh;
   object-fit: cover;
@@ -543,7 +543,6 @@
   display: block;
   min-height: 100%;
   min-width: 100%;
-  top: 30px;
 }
 
 /* Overlay de informações - esconde no hover da imagem */
