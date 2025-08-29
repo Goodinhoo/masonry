@@ -210,7 +210,7 @@
   flex-direction: column;
   gap: 12px;
   /* Scroll após 10 pessoas (ajustado para nova altura dos botões) */
-  max-height: 260px; /* 10 filtros × 68px cada + gaps */
+  max-height: 200px; /* 10 filtros × 68px cada + gaps */
   overflow-y: auto;
   overflow-x: hidden;
   padding-right: 4px; /* Espaço para o scroll */
