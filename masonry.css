@@ -536,6 +536,8 @@
 }
 
 #modalImage {
+  position: relative;
+  top:14px;
   width: auto;
   height: 85vh;
   object-fit: cover;
