@@ -59,7 +59,7 @@ class AdvancedImageDataManager {
   async loadImageData() {
     try {
       // Usar proxy público para evitar CORS
-      const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent('https://drive.google.com/uc?export=download&id=1XQj3adzAUuRmbiFoAxQcMelDRAiOreJy')}`;
+      const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent('https://drive.google.com/uc?export=download&id=1QVfvjf7HDC8rt-HftbTI0gjO0W3OeOzr')}`;
       const response = await fetch(proxyUrl);
       
       if (!response.ok) {
