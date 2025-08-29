@@ -190,8 +190,8 @@ class AdvancedImageDataManager {
    * Gerar URL thumbnail pequeno para galeria (carregamento rápido)
    */
   generateThumbnailUrl(fileId) {
-    // URL thumbnail pequeno para a galeria
-    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w400`;
+    // URL thumbnail muito pequeno para carregamento ultra-rápido na galeria
+    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w200`;
   }
 
   /**
@@ -631,8 +631,8 @@ class AdvancedTetrisGallery {
     img.onerror = () => {
       console.warn(`Falha ao carregar imagem ${imageObj.googleDriveId}, tentando URL alternativo...`);
       
-      // Tentar URL alternativo com tamanho ainda menor
-      const fallbackUrl = `https://drive.google.com/thumbnail?id=${imageObj.googleDriveId}&sz=w300`;
+      // Tentar URL alternativo com tamanho ainda menor para galeria
+      const fallbackUrl = `https://drive.google.com/thumbnail?id=${imageObj.googleDriveId}&sz=w150`;
       
       if (img.src !== fallbackUrl) {
         img.src = fallbackUrl;
@@ -787,9 +787,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Funções de debug globais para testar URLs
     window.testImageUrl = function(fileId) {
       const urls = {
-        thumbnail_large: `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`,
-        thumbnail_medium: `https://drive.google.com/thumbnail?id=${fileId}&sz=w800`,
-        thumbnail_small: `https://drive.google.com/thumbnail?id=${fileId}&sz=w400`,
+        thumbnail_ultra_high: `https://drive.google.com/thumbnail?id=${fileId}&sz=w2048`,
+        thumbnail_high: `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`,
+        thumbnail_medium: `https://drive.google.com/thumbnail?id=${fileId}&sz=w400`,
+        thumbnail_small: `https://drive.google.com/thumbnail?id=${fileId}&sz=w200`,
+        thumbnail_tiny: `https://drive.google.com/thumbnail?id=${fileId}&sz=w150`,
         direct_download: `https://drive.google.com/uc?id=${fileId}`,
         view_page: `https://drive.google.com/file/d/${fileId}/view`
       };
