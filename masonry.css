@@ -354,17 +354,18 @@
 }
 
 .tetris-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(var(--cell-size), 1fr));
-  grid-template-rows: repeat(var(--grid-rows), var(--cell-size));
-  gap: var(--grid-gap);
-  justify-content: start;
-  width: 100%;
-  margin: 0;
-  padding: 20px;
-  background: var(--surface-color);
-  border-radius: 20px;
-  border: 1px solid var(--border-color);
+    display: grid
+;
+    grid-template-columns: repeat(auto-fit, minmax(var(--cell-size), 1fr));
+    grid-template-rows: repeat(var(--grid-rows), var(--cell-size));
+    gap: var(--grid-gap);
+    justify-content: start;
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    /* background: var(--surface-color); */
+    /* border-radius: 20px; */
+    /* border: 1px solid var(--border-color); */
 }
 
 /* =========================================
