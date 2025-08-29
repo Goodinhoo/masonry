@@ -1,0 +1,931 @@
+/* =========================================
+   LAYOUT PRINCIPAL
+   ========================================= */
+
+.gallery-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.img-count {
+  background: none !important;
+}
+
+/* =========================================
+   SIDEBAR DE FILTROS - TEMA GALE
+   ========================================= */
+
+.gallery-sidebar {
+  background: var(--surface-color);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 0 9px var(--shadow-color);
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+  border: 1px solid var(--border-color);
+}
+
+.sidebar-section {
+  margin-bottom: 30px;
+}
+
+.sidebar-section h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.sidebar-section h3 > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar-section h3 i {
+  color: var(--primary-color);
+}
+
+/* Botão de contagem de imagens estilo filtro */
+.image-count-filter {
+  padding: 12px 16px; /* Valor original mantido */
+  border: 2px solid var(--border-color);
+  background: var(--surface-color);
+  color: var(--text-secondary);
+  border-radius: 12px;
+  cursor: default;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  border-left: 3px solid var(--primary-color);
+  pointer-events: none;
+  margin-top: 12px;
+}
+
+.image-count-filter .filter-name {
+  background: rgba(14, 165, 233, 0.2);
+  color: var(--primary-color);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  min-width: 24px;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+}
+
+.image-count-filter .filter-name span {
+  color: inherit;
+  font-weight: inherit;
+}
+
+.image-count-filter:hover {
+  transform: none;
+  background: var(--surface-color);
+  border-color: var(--border-color);
+}
+
+/* =========================================
+   FILTROS DE TEMPORADA/CATEGORIA
+   ========================================= */
+
+.season-selector,
+.category-selector {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--surface-color);
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  border-left: 3px solid var(--primary-color);
+}
+
+.season-selector:focus,
+.category-selector:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+}
+
+/* Efeito de degradê animado para seletores */
+.season-selector::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(14, 165, 233, 0.1) 20%,
+    rgba(14, 165, 233, 0.3) 40%,
+    rgba(56, 189, 248, 0.4) 60%,
+    rgba(125, 211, 252, 0.3) 80%,
+    transparent 100%
+  );
+  transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 0;
+  border-radius: 10px;
+}
+
+.season-selector:hover::before {
+  left: 100%;
+}
+
+.category-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  /* Scroll após 10 pessoas (ajustado para nova altura dos botões) */
+  max-height: 720px; /* 10 filtros × 68px cada + gaps */
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 4px; /* Espaço para o scroll */
+}
+
+/* Estilização customizada da barra de scroll */
+.category-filters::-webkit-scrollbar {
+  width: 6px;
+}
+
+.category-filters::-webkit-scrollbar-track {
+  background: var(--surface-color);
+  border-radius: 10px;
+}
+
+.category-filters::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 10px;
+  opacity: 0.7;
+}
+
+.category-filters::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-light);
+  opacity: 1;
+}
+
+/* Suporte para Firefox */
+.category-filters {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) var(--surface-color);
+}
+
+.filter-btn {
+  padding: 25px 20px; /* Aumentado de 12px 16px */
+  border: 2px solid var(--border-color);
+  background: var(--surface-color);
+  color: var(--text-secondary);
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  border-left: 3px solid var(--primary-color);
+}
+
+.filter-badge {
+  background: rgba(14, 165, 233, 0.2);
+  color: var(--primary-color);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  min-width: 24px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.season-selector:hover,
+.category-selector:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  transform: translateX(5px);
+  box-shadow: 0 4px 20px rgba(14, 165, 233, 0.4);
+  background-color: rgba(14, 165, 233, 0.05);
+}
+
+.filter-btn:hover {
+  border-color: var(--primary-color);
+  color: var(--text-primary);
+  background: linear-gradient(
+    90deg,
+    var(--surface-color) 0%,
+    rgba(14, 165, 233, 0.05) 100%
+  );
+}
+
+/* Efeito de degradê animado para filtros */
+.filter-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(14, 165, 233, 0.1) 25%,
+    rgba(14, 165, 233, 0.3) 50%,
+    rgba(14, 165, 233, 0.1) 75%,
+    transparent 100%
+  );
+  transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 0;
+  border-radius: 10px;
+}
+
+.filter-btn:hover::before {
+  left: 100%;
+}
+
+.filter-btn.active {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-light);
+}
+
+.filter-btn.active .filter-badge {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+/* =========================================
+   GRID TETRIS SYSTEM - INTEGRADO COM TEMA
+   ========================================= */
+
+.gallery-main {
+  min-height: 600px;
+  position: relative;
+  width: 100%;
+  flex: 1; /* Ocupa todo o espaço restante */
+}
+
+.tetris-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--cell-size), 1fr));
+  grid-template-rows: repeat(var(--grid-rows), var(--cell-size));
+  gap: var(--grid-gap);
+  justify-content: start;
+  width: 100%;
+  margin: 0;
+  padding: 20px;
+  background: var(--surface-color);
+  border-radius: 20px;
+  box-shadow: 0 0 9px var(--shadow-color);
+  border: 1px solid var(--border-color);
+}
+
+/* =========================================
+   BLOCOS DE IMAGEM - ESTILO GALE
+   ========================================= */
+
+.image-block {
+  background: var(--surface-color);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 9px var(--shadow-color);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.image-block:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px var(--hover-shadow);
+  border-color: var(--primary-color);
+}
+
+.image-block__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.image-block:hover .image-block__image {
+  transform: scale(1.05);
+}
+
+.image-block__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  padding: 12px;
+  color: white;
+  font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-block:hover .image-block__overlay {
+  opacity: 1;
+}
+
+.image-name {
+  font-weight: 600;
+  font-size: 0.8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.image-size {
+  font-size: 0.7rem;
+  color: var(--primary-lighter);
+  font-weight: 500;
+}
+
+.image-category {
+  font-size: 0.7rem;
+  color: var(--accent-color);
+  font-weight: 500;
+}
+
+.image-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--error-color);
+  font-size: 0.8rem;
+  text-align: center;
+  padding: 12px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  gap: 8px;
+}
+
+.image-error i {
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+
+.image-error span {
+  font-weight: 600;
+}
+
+.image-error small {
+  font-size: 0.7rem;
+  opacity: 0.7;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* =========================================
+   MODAL DE VISUALIZAÇÃO - TEMA GALE
+   ========================================= */
+
+.image-viewer-modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-overlay {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.modal-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0; /* Remove todo o padding */
+  overflow: hidden;
+}
+
+/* Carousel container - estilo Tailwind */
+.infinity-carousel {
+  position: relative;
+  width: auto; /* Usa toda a largura da viewport */
+  height: 85vh; /* Usa toda a altura da viewport */
+  max-width: none; /* Remove limitação de largura */
+  max-height: none; /* Remove limitação de altura */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.9); /* Fundo mais escuro */
+  border-radius: 0; /* Remove bordas arredondadas para ocupar tudo */
+  overflow: hidden;
+  box-shadow: none; /* Remove sombra para layout fullscreen */
+}
+
+#modalImage {
+  position: relative;
+  width: auto;
+  height: 85vh;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  min-height: 100%;
+  min-width: 100%;
+  top: 30px;
+}
+
+/* Overlay de informações - esconde no hover da imagem */
+.image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.7) 50%,
+    transparent 100%
+  );
+  padding: 30px 25px 25px;
+  color: white;
+  z-index: 15;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Esconder informações quando hover na imagem */
+.infinity-carousel:hover .image-overlay {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Mostrar informações quando hover nos controles (para não atrapalhar navegação) */
+.modal-close:hover ~ .image-overlay,
+.nav-btn:hover ~ .image-overlay,
+.image-overlay:hover {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Conteúdo das informações */
+.image-info-content {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Contador - estilo Tailwind */
+.image-counter {
+  color: var(--primary-color);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  opacity: 0.9;
+}
+
+/* Título da imagem */
+.image-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  line-height: 1.3;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+/* Descrição */
+.image-description {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 12px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Tag da temporada */
+.season-tag {
+  display: inline-block;
+  background: var(--primary-color);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);
+  text-shadow: none;
+}
+
+/* Controles do modal */
+.modal-close,
+.nav-btn {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid var(--primary-color);
+  color: white;
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  font-size: 1.2rem;
+}
+
+.modal-close {
+  top: 30px;
+  right: 30px;
+}
+
+.nav-prev {
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.nav-next {
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.modal-close:hover,
+.nav-btn:hover {
+  background: var(--primary-color);
+  border-color: var(--primary-light);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.modal-close:hover {
+  transform: scale(1.1);
+}
+
+.nav-prev:hover,
+.nav-next:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Responsividade do modal */
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 20px 15px;
+  }
+
+  .infinity-carousel {
+    width: 100vw;
+    height: 85vh;
+    border-radius: 0;
+  }
+
+  .image-overlay {
+    padding: 25px 20px 20px;
+  }
+
+  .image-title {
+    font-size: 1.2rem;
+  }
+
+  .image-description {
+    font-size: 0.9rem;
+  }
+
+  .season-tag {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  .nav-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 1rem;
+  }
+
+  .nav-prev {
+    left: 15px;
+  }
+
+  .nav-next {
+    right: 15px;
+  }
+
+  .modal-close {
+    top: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+  }
+}
+
+/* =========================================
+   LOADING E ESTADOS
+   ========================================= */
+
+.loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-secondary);
+}
+
+.loading-spinner {
+  border: 4px solid var(--border-color);
+  border-top: 4px solid var(--primary-color);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-secondary);
+  grid-column: 1 / -1;
+}
+
+.empty-state i {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  opacity: 0.5;
+  color: var(--primary-color);
+}
+
+/* =========================================
+   RESPONSIVIDADE
+   ========================================= */
+
+@media (max-width: 1024px) {
+  .gallery-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .gallery-sidebar {
+    position: static;
+    order: 2;
+  }
+
+  .gallery-main {
+    order: 1;
+  }
+
+  .tetris-grid {
+    grid-template-columns: repeat(4, var(--cell-size));
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-header h1 {
+    font-size: 2rem;
+  }
+
+  .tetris-grid {
+    grid-template-columns: repeat(3, var(--cell-size));
+    gap: 3px;
+  }
+
+  :root {
+    --cell-size: 100px;
+  }
+
+  .filter-btn {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 15px;
+  }
+
+  .tetris-grid {
+    grid-template-columns: repeat(2, var(--cell-size));
+    gap: 2px;
+  }
+
+  :root {
+    --cell-size: 80px;
+  }
+
+  .gallery-sidebar {
+    padding: 20px;
+  }
+
+  .filter-btn {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+}
+
+/* =========================================
+   ANIMAÇÕES DE ENTRADA
+   ========================================= */
+
+.image-block {
+  opacity: 0;
+  animation: slideInUp 0.6s ease forwards;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.image-block:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.image-block:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.image-block:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.image-block:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.image-block:nth-child(5) {
+  animation-delay: 0.5s;
+}
+.image-block:nth-child(n + 6) {
+  animation-delay: 0.6s;
+}
+
+/* =========================================
+   SISTEMA MASONRY - CLASSES ESPECÍFICAS
+   ========================================= */
+
+/* Classes de tamanho masonry utilizadas no JavaScript */
+.masonry-item {
+  background: var(--surface-color);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 9px var(--shadow-color);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.masonry-item:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px var(--hover-shadow);
+  border-color: var(--primary-color);
+}
+
+/* Container de imagem dentro do masonry item */
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.masonry-item:hover .image-container img {
+  transform: scale(1.05);
+}
+
+/* Número da imagem */
+.image-number {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid var(--primary-color);
+  backdrop-filter: blur(4px);
+  z-index: 5;
+}
+
+/* Classes específicas de tamanho do sistema masonry */
+.tall {
+  grid-row: span 3;
+}
+.portrait {
+  grid-row: span 2;
+}
+.wide {
+  grid-column: span 3;
+}
+.landscape {
+  grid-column: span 2;
+}
+.large {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+.square {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+.medium-wide {
+  grid-column: span 2;
+  grid-row: span 1;
+}
+.small-portrait {
+  grid-column: span 1;
+  grid-row: span 2;
+}
+.medium-portrait {
+  grid-column: span 1;
+  grid-row: span 2;
+}
+.standard-portrait {
+  grid-column: span 1;
+  grid-row: span 2;
+}
+.small-landscape {
+  grid-column: span 2;
+  grid-row: span 1;
+}
