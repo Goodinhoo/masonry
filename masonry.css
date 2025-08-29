@@ -1,4 +1,8 @@
 /* =========================================
+   TEMA GALE - VARIÁVEIS DE COR INTEGRADAS
+   ========================================= */
+
+/* =========================================
    LAYOUT PRINCIPAL
    ========================================= */
 
@@ -7,6 +11,38 @@
   grid-template-columns: 300px 1fr;
   gap: 40px;
   align-items: start;
+  /* Altura fixa e scroll */
+  height: 890px;
+  overflow: hidden;
+  overflow-y: auto;
+  padding-right: 4px; /* Espaço para o scroll */
+}
+
+/* Estilização customizada da barra de scroll para gallery-layout */
+.gallery-layout::-webkit-scrollbar {
+  width: 6px;
+}
+
+.gallery-layout::-webkit-scrollbar-track {
+  background: var(--surface-color);
+  border-radius: 10px;
+}
+
+.gallery-layout::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 10px;
+  opacity: 0.7;
+}
+
+.gallery-layout::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-light);
+  opacity: 1;
+}
+
+/* Suporte para Firefox na gallery-layout */
+.gallery-layout {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) var(--surface-color);
 }
 
 .img-count {
@@ -164,13 +200,14 @@
 }
 
 .category-filters {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    max-height: 545px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding-right: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  /* Scroll após 10 pessoas (ajustado para nova altura dos botões) */
+  max-height: 720px; /* 10 filtros × 68px cada + gaps */
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 4px; /* Espaço para o scroll */
 }
 
 /* Estilização customizada da barra de scroll */
