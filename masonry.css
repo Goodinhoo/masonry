@@ -12,10 +12,17 @@
   gap: 40px;
   align-items: start;
   /* Altura fixa e scroll */
-  height: 890px;
+  height: 585px;
   overflow: hidden;
   overflow-y: auto;
   padding-right: 4px; /* Espaço para o scroll */
+}
+
+@media screen and (min-width: 3000px) {
+  .gallery-layout {
+    /* Altura fixa e scroll */
+    height: 890px;
+  }
 }
 
 /* Estilização customizada da barra de scroll para gallery-layout */
@@ -203,10 +210,21 @@
   flex-direction: column;
   gap: 12px;
   /* Scroll após 10 pessoas (ajustado para nova altura dos botões) */
-  max-height: 460px !important; /* 10 filtros × 68px cada + gaps */
+  max-height: 260px; /* 10 filtros × 68px cada + gaps */
   overflow-y: auto;
   overflow-x: hidden;
   padding-right: 4px; /* Espaço para o scroll */
+}
+
+/* Media query para monitores ultra wide (3440x1440 e similares) */
+@media screen and (min-width: 3000px) {
+  .category-filters {
+    /* Scroll após 10 pessoas (ajustado para nova altura dos botões) */
+    max-height: 460px; /* 10 filtros × 68px cada + gaps */
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 4px; /* Espaço para o scroll */
+  }
 }
 
 /* Estilização customizada da barra de scroll */
